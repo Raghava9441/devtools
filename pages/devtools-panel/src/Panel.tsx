@@ -1,32 +1,24 @@
 import '@src/Panel.css';
 import { useStorageSuspense, withErrorBoundary, withSuspense } from '@chrome-extension-boilerplate/shared';
 import { exampleThemeStorage } from '@chrome-extension-boilerplate/storage';
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef, useState } from 'react';
+import Button from './components/common/UI/Button';
+import DevToolsLayout from './components/layout/DevToolsLayout';
+import ContentRouter from './components/ContentRouter';
 
 const Panel = () => {
   const theme = useStorageSuspense(exampleThemeStorage);
+  const [selectedTab, setSelectedTab] = useState('local-storage');
 
   return (
     <div
-      className="App"
+      className="h-screen"
       style={{
-        backgroundColor: theme === 'light' ? '#eee' : '#222',
+        backgroundColor: theme === 'light' ? '#f9fafb' : '#111827',
       }}>
-      <header className="App-header" style={{ color: theme === 'light' ? '#222' : '#eee' }}>
-        <img src={chrome.runtime.getURL('devtools-panel/logo.svg')} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>pages/devtools-panel/src/Panel.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: theme === 'light' ? '#0281dc' : undefined, marginBottom: '10px' }}>
-          Learn React!
-        </a>
-        <ToggleButton>Toggle theme</ToggleButton>
-      </header>
+      <DevToolsLayout selectedTab={selectedTab} onTabSelect={setSelectedTab}>
+        <ContentRouter selectedTab={selectedTab} />
+      </DevToolsLayout>
     </div>
   );
 };
@@ -34,7 +26,8 @@ const Panel = () => {
 const ToggleButton = (props: ComponentPropsWithoutRef<'button'>) => {
   const theme = useStorageSuspense(exampleThemeStorage);
   return (
-    <button
+    <Button
+      variant="primary" size="large" icon={<span>hey</span>}
       className={
         props.className +
         ' ' +
@@ -43,7 +36,7 @@ const ToggleButton = (props: ComponentPropsWithoutRef<'button'>) => {
       }
       onClick={exampleThemeStorage.toggle}>
       {props.children}
-    </button>
+    </Button>
   );
 };
 
