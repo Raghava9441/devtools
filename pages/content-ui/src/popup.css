@@ -1,0 +1,45 @@
+/* Example of CSS for smooth transitions */
+
+.popup-handle {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: green;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transform: translate(50%, -50%);
+    transition: background-color 0.3s ease;
+}
+
+.popup-handle:hover {
+    background-color: darkgreen;
+    /* Example of hover effect */
+}
+
+.popup-container {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    width: 300px;
+    height: 400px;
+    background-color: green;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    z-index: 9999;
+    padding: 10px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.popup-container.hidden {
+    opacity: 0;
+    transform: scale(0.5);
+    pointer-events: none;
+}
