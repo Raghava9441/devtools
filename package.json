@@ -1,15 +1,15 @@
 {
-  "name": "chrome-extension-boilerplate-react-vite",
-  "version": "0.0.1",
-  "description": "chrome extension boilerplate",
+  "name": "storage-sync",
+  "version": "1.0.0",
+  "description": "local storage and session storage explorer",
   "license": "MIT",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite.git"
+    "type": "git"
   },
   "scripts": {
     "clean": "rimraf dist && turbo clean",
-    "build": "turbo build",
+    "build": "rimraf dist && turbo build",
+
     "build:firefox": "cross-env __FIREFOX__=true turbo build",
     "dev-server": "pnpm -F hmr ready && pnpm -F hmr dev",
     "dev": "turbo ready && turbo watch dev --concurrency 20",

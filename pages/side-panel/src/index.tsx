@@ -11,4 +11,4 @@ function init() {
   root.render(<SidePanel />);
 }
 
-init();
+// init();

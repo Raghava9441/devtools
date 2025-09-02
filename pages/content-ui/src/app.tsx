@@ -8,41 +8,41 @@ const App = () => {
   const [emails, setEmails] = useState([]);
   const [phones, setPhones] = useState([]);
 
-  const onMouseDown = useCallback(e => {
-    e.preventDefault();
-    setIsDragging(true);
-  }, []);
+  // const onMouseDown = useCallback(e => {
+  //   e.preventDefault();
+  //   setIsDragging(true);
+  // }, []);
 
-  const onMouseMove = useCallback(
-    e => {
-      if (isDragging) {
-        setPosition(prevPosition => ({
-          x: prevPosition.x + e.movementX,
-          y: prevPosition.y + e.movementY,
-        }));
-      }
-    },
-    [isDragging],
-  );
+  // const onMouseMove = useCallback(
+  //   e => {
+  //     if (isDragging) {
+  //       setPosition(prevPosition => ({
+  //         x: prevPosition.x + e.movementX,
+  //         y: prevPosition.y + e.movementY,
+  //       }));
+  //     }
+  //   },
+  //   [isDragging],
+  // );
 
   const onMouseUp = useCallback(() => {
     setIsDragging(false);
   }, []);
 
-  useEffect(() => {
-    if (isDragging) {
-      window.addEventListener('mousemove', onMouseMove);
-      window.addEventListener('mouseup', onMouseUp);
-    } else {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
-    }
+  // useEffect(() => {
+  //   if (isDragging) {
+  //     window.addEventListener('mousemove', onMouseMove);
+  //     window.addEventListener('mouseup', onMouseUp);
+  //   } else {
+  //     window.removeEventListener('mousemove', onMouseMove);
+  //     window.removeEventListener('mouseup', onMouseUp);
+  //   }
 
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
-    };
-  }, [isDragging, onMouseMove, onMouseUp]);
+  //   return () => {
+  //     window.removeEventListener('mousemove', onMouseMove);
+  //     window.removeEventListener('mouseup', onMouseUp);
+  //   };
+  // }, [isDragging, onMouseMove, onMouseUp]);
 
   useEffect(() => {
     const findEmailsAndPhones = () => {
@@ -53,8 +53,8 @@ const App = () => {
       const foundEmails = Array.from(new Set(text.match(emailRegex) || []));
       const foundPhones = Array.from(new Set(text.match(phoneRegex) || []));
 
-      setEmails(foundEmails);
-      setPhones(foundPhones);
+      // setEmails(foundEmails);
+      // setPhones(foundPhones);
 
       // Open popup if emails or phones are found
       if (foundEmails.length > 0 || foundPhones.length > 0) {
@@ -83,7 +83,7 @@ const App = () => {
 
   return (
     <>
-      <div
+      {/* <div
         onMouseDown={onMouseDown}
         style={{
           position: 'fixed',
@@ -142,7 +142,7 @@ const App = () => {
             </ul>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

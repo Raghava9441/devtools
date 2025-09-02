@@ -30,7 +30,7 @@ export const usePermissions = () => {
       const [permissionsData, statsData, historyData] = await Promise.all([
         PermissionsService.getPermissionsData(),
         PermissionsService.getPermissionStats(),
-        PermissionsService.getPermissionHistory()
+        PermissionsService.getPermissionHistory(),
       ]);
 
       setPermissions(permissionsData);
@@ -53,38 +53,47 @@ export const usePermissions = () => {
   }, []);
 
   // Function to request a permission
-  const requestPermission = useCallback(async (permissionName: string) => {
-    try {
-      setRequestingPermission(permissionName);
-      setError(null);
+  const requestPermission = useCallback(
+    async (permissionName: string) => {
+      try {
+        setRequestingPermission(permissionName);
+        setError(null);
 
-      const result = await PermissionsService.requestPermission(permissionName);
-      
-      // Add to history
-      setHistory(prev => [result, ...prev]);
-      
-      // Refresh permissions data to get updated states
-      await fetchPermissionsData();
-      
-      return result;
-    } catch (err) {
-      console.error('Error requesting permission:', err);
-      setError(err instanceof Error ? err.message : 'Failed to request permission');
-      throw err;
-    } finally {
-      setRequestingPermission(null);
-    }
-  }, [fetchPermissionsData]);
+        const result = await PermissionsService.requestPermission(permissionName);
+
+        // Add to history
+        setHistory(prev => [result, ...prev]);
+
+        // Refresh permissions data to get updated states
+        await fetchPermissionsData();
+
+        return result;
+      } catch (err) {
+        console.error('Error requesting permission:', err);
+        setError(err instanceof Error ? err.message : 'Failed to request permission');
+        throw err;
+      } finally {
+        setRequestingPermission(null);
+      }
+    },
+    [fetchPermissionsData],
+  );
 
   // Function to get permissions by category
-  const getPermissionsByCategory = useCallback((category: PermissionInfo['category']) => {
-    return permissions.filter(p => p.category === category);
-  }, [permissions]);
+  const getPermissionsByCategory = useCallback(
+    (category: PermissionInfo['category']) => {
+      return permissions.filter(p => p.category === category);
+    },
+    [permissions],
+  );
 
   // Function to get permissions by state
-  const getPermissionsByState = useCallback((state: PermissionInfo['state']) => {
-    return permissions.filter(p => p.state === state);
-  }, [permissions]);
+  const getPermissionsByState = useCallback(
+    (state: PermissionInfo['state']) => {
+      return permissions.filter(p => p.state === state);
+    },
+    [permissions],
+  );
 
   // Function to refresh all data
   const refreshData = useCallback(async () => {
@@ -107,6 +116,6 @@ export const usePermissions = () => {
     requestPermission,
     getPermissionsByCategory,
     getPermissionsByState,
-    refreshData
+    refreshData,
   };
 };

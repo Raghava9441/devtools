@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type ManifestInfo = {
   name: string;
   shortName: string;
@@ -35,12 +36,12 @@ export class ManifestService {
       if (!tab.id) {
         throw new Error('No active tab found');
       }
-      
+
       // Check if the tab URL is accessible
       if (!tab.url || tab.url.startsWith('chrome://') || tab.url.startsWith('chrome-extension://')) {
         throw new Error('Cannot access manifest for this type of page (chrome:// or chrome-extension://)');
       }
-      
+
       return tab;
     } catch (error) {
       console.error('Error getting current tab:', error);
@@ -54,7 +55,7 @@ export class ManifestService {
   private static async executeScript<T>(func: (...args: any[]) => T, args: any[] = []): Promise<T> {
     try {
       const tab = await this.getCurrentTab();
-      
+
       // Check if we can inject scripts into this tab
       if (!tab.url || tab.url.startsWith('chrome://') || tab.url.startsWith('chrome-extension://')) {
         throw new Error('Cannot execute scripts on this type of page');
@@ -63,7 +64,7 @@ export class ManifestService {
       const result = await chrome.scripting.executeScript({
         target: { tabId: tab.id! },
         func,
-        args
+        args,
       });
 
       if (result && result[0] && result[0].result !== undefined) {
@@ -172,7 +173,7 @@ export class ManifestService {
     } else {
       const has192Icon = manifest.icons.some(icon => icon.sizes.includes('192'));
       const has512Icon = manifest.icons.some(icon => icon.sizes.includes('512'));
-      
+
       if (!has192Icon) {
         warnings.push('192x192 icon is recommended for better compatibility');
       }
@@ -200,7 +201,7 @@ export class ManifestService {
     return {
       isValid: errors.length === 0,
       errors,
-      warnings
+      warnings,
     };
   }
 
@@ -209,37 +210,33 @@ export class ManifestService {
    */
   static generateSampleManifest(): ManifestInfo {
     return {
-      name: "My Progressive Web App",
-      shortName: "MyPWA",
-      description: "A sample progressive web application with modern features",
-      startUrl: "/",
-      display: "standalone",
-      themeColor: "#3B82F6",
-      backgroundColor: "#FFFFFF",
+      name: 'My Progressive Web App',
+      shortName: 'MyPWA',
+      description: 'A sample progressive web application with modern features',
+      startUrl: '/',
+      display: 'standalone',
+      themeColor: '#3B82F6',
+      backgroundColor: '#FFFFFF',
       icons: [
         {
-          src: "/icon-192.png",
-          sizes: "192x192",
-          type: "image/png"
+          src: '/icon-192.png',
+          sizes: '192x192',
+          type: 'image/png',
         },
         {
-          src: "/icon-512.png",
-          sizes: "512x512",
-          type: "image/png"
-        }
+          src: '/icon-512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
       ],
-      permissions: [
-        "notifications",
-        "geolocation",
-        "camera"
-      ],
-      scope: "/",
-      orientation: "portrait",
-      categories: ["productivity", "utilities"],
-      lang: "en",
-      dir: "ltr",
+      permissions: ['notifications', 'geolocation', 'camera'],
+      scope: '/',
+      orientation: 'portrait',
+      categories: ['productivity', 'utilities'],
+      lang: 'en',
+      dir: 'ltr',
       preferRelatedApplications: false,
-      relatedApplications: []
+      relatedApplications: [],
     };
   }
 
@@ -251,7 +248,7 @@ export class ManifestService {
       const dataStr = JSON.stringify(manifest, null, 2);
       const dataBlob = new Blob([dataStr], { type: 'application/json' });
       const url = URL.createObjectURL(dataBlob);
-      
+
       const link = document.createElement('a');
       link.href = url;
       link.download = filename;

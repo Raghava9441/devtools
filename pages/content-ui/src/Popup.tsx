@@ -70,11 +70,11 @@ const Popup: React.FC<PopupProps> = ({ onClose, emails, phones }) => {
       <button style={closeButtonStyles} onClick={onClose}>
         Close
       </button>
-      <div style={handleStyles}>
+      {/* <div style={handleStyles}>
         <span style={{ color: '#FFFFFF' }} onClick={onClose}>
           close
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };

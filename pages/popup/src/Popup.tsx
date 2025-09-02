@@ -10,10 +10,14 @@ const Popup = () => {
   return (
     <div
       className="App"
-      style={{
-        backgroundColor: theme === 'light' ? '#eee' : '#222',
-      }}>
-      <header className="App-header" style={{ color: theme === 'light' ? '#222' : '#eee' }}>
+      // style={{
+      //   backgroundColor: theme === 'light' ? '#eee' : '#222',
+      // }}
+    >
+      <header
+        className="App-header"
+        // style={{ color: theme === 'light' ? '#222' : '#eee' }}
+      >
         <img src={chrome.runtime.getURL('popup/logo.svg')} className="App-logo" alt="logo" />
 
         <p>

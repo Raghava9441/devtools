@@ -22,4 +22,4 @@ globalStyleSheet.replaceSync(tailwindcssOutput);
 shadowRoot.adoptedStyleSheets = [globalStyleSheet];
 shadowRoot.appendChild(rootIntoShadow);
 
-createRoot(rootIntoShadow).render(<App />);
+// createRoot(rootIntoShadow).render(<App />);
